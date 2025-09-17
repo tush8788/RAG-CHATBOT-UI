@@ -1,16 +1,22 @@
 import { GoogleLogin } from "@react-oauth/google"
+import axios from "axios"
+import appConfig from "../../utils/app.config"
+import useAuth from "../../utils/hooks/useAuth"
 
 const SignIn = () => {
-
+    const {signIn} = useAuth()
     const resMessage = async (response: any) => {
         try {
             try {
-                const resp: any = await verifyGoogleToken({ token: response.credential })
+                let resp = await axios.post(`${appConfig.apiUrl}/user/verify-google-token`,{
+                    token:response.credential
+                })
+                console.log("resp ",resp.data.results)
                 if (!resp?.data?.success) {
                     console
                     throw new Error(`Error in google auth ${resp}`);
                 }
-                // signIn(resp?.data?.results)
+                signIn(resp?.data?.results)
 
             }
             catch (err) {
