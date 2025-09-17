@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import Header from "../../common/header"
+import Header from "../../components/shared/header"
 import { Send, User, Bot } from 'lucide-react';
-import useSocket from "../../utility/hooks/useSocket";
+import useSocket from "../../utils/hooks/useSocket";
 
 type MessageType = {
     role: 'user' | 'model' | 'error',

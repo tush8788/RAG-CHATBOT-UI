@@ -1,4 +1,4 @@
-import { Send, User, Bot } from 'lucide-react';
+import { Bot } from 'lucide-react';
 
 const Header = () => {
 

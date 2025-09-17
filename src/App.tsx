@@ -1,12 +1,12 @@
-import ChatUi from "./views/chat"
+import Navigation from "./components/layouts/routes/navigation"
+import { BrowserRouter } from 'react-router-dom'
 
 function App() {
 
   return (
-    <>
-      {/* <div className="bg-red-50">Not</div> */}
-      <ChatUi/>
-    </>
+    <BrowserRouter>
+      <Navigation />
+    </BrowserRouter>
   )
 }
 
