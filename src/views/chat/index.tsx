@@ -13,9 +13,11 @@ const ChatUi = () => {
     const { Socket, makeEvent } = useSocket();
 
     useEffect(() => {
+        Socket?.on('chat_history',(allMessages:MessageType[])=>{
+            setMessages(allMessages)
+        })
+
         Socket?.on('ai_message', (messageObj:MessageType) => {
-            // console.log("pal ",pal)
-            console.log("messageObj ", messageObj)
             setMessages((prev) => [...prev, messageObj])
             setIsTyping(false);
         })
@@ -47,7 +49,7 @@ const ChatUi = () => {
 
         setMessages(prev => [...prev, userMessage]);
         setIsTyping(true);
-        makeEvent('user_message', { message: userMessage })
+        makeEvent('user_message', { message: inputMessage })
         setInputMessage('');
     };
 

@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import appConfig from "../app.config";
 import { io, Socket as SocketIOClient } from "socket.io-client";
+import { useAppSelector } from "../../store/hooks";
 
 const SOCKET_SERVER_URL = appConfig.apiUrl.replace(/\/api\/?$/, "");
 
 const useSocket = () => {
 
     const [Socket, setSocket] = useState<SocketIOClient | null>(null);
-    const token = 'dfd'
+    const { token } = useAppSelector((state) => state.user);
     useEffect(() => {
         if (!token) return;
 
