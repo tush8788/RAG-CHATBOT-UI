@@ -25,6 +25,7 @@ const useAuth = () => {
 
     return {
         isAuthenticated: !!token,
+        token,
         signIn,
         signOut,
         checkAuthentication
