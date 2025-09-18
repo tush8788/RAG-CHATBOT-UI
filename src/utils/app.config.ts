@@ -4,7 +4,7 @@ export type AppConfig = {
 }
 
 const appConfig: AppConfig = {
-    apiUrl: 'http://localhost:4000/api',
+    apiUrl: import.meta.env.VITE_API_URL || 'http://localhost:4000/api',
     //@ts-ignore
     googleClientId: import.meta.env.VITE_GOOGLE_CLIENT_ID || ''
 }
