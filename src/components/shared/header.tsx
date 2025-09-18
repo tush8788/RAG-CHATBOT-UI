@@ -24,7 +24,7 @@ const Header = ({clearMessages}:{clearMessages:()=>void}) => {
                     <Bot className="text-xl text-white" />
                 </div>
                 <div>
-                    <h1 className="text-xl font-semibold text-gray-800">AI Assistant</h1>
+                    <h1 className="text-xl font-semibold text-gray-800">RAG Chatbot</h1>
                     <p className="text-sm text-gray-500">Online</p>
                 </div>
             </div>
