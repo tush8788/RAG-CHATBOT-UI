@@ -129,7 +129,7 @@ const ChatUi = () => {
                                 placeholder="Type your message here..."
                                 className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                 disabled={isTyping}
-                                onKeyDown={(e) => {
+                                onKeyDown={(e:any) => {
                                     if (e.key === 'Enter') {
                                         handleSendMessage(e);
                                     }
@@ -137,7 +137,7 @@ const ChatUi = () => {
                             />
                         </div>
                         <button
-                            onClick={handleSendMessage}
+                            onClick={(e:any)=>handleSendMessage(e)}
                             disabled={inputMessage.trim() === '' || isTyping}
                             className="bg-blue-500 hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed text-white rounded-full p-3 transition-colors duration-200"
                         >
