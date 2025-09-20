@@ -3,7 +3,7 @@ import useAuth from '../../utils/hooks/useAuth';
 import axios from 'axios';
 import appConfig from '../../utils/app.config';
 import LoadingUi from './LoadingUi';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import ConditionalRender from './ConditionalRender';
 
 const Header = ({ clearMessages }: { clearMessages: () => void }) => {
