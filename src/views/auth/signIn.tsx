@@ -2,28 +2,35 @@ import { GoogleLogin } from "@react-oauth/google"
 import axios from "axios"
 import appConfig from "../../utils/app.config"
 import useAuth from "../../utils/hooks/useAuth"
+import { useState } from "react"
+import ConditionalRender from "../../components/shared/ConditionalRender"
+import LoadingUi from "../../components/shared/LoadingUi"
 
 const SignIn = () => {
-    const {signIn} = useAuth()
+    const { signIn } = useAuth()
+    const [loading, setLoading] = useState(false)
     const resMessage = async (response: any) => {
         try {
             try {
-                let resp = await axios.post(`${appConfig.apiUrl}/user/verify-google-token`,{
-                    token:response.credential
+                setLoading(true)
+                let resp = await axios.post(`${appConfig.apiUrl}/user/verify-google-token`, {
+                    token: response.credential
                 })
-                console.log("resp ",resp.data.results)
+                console.log("resp ", resp.data.results)
                 if (!resp?.data?.success) {
                     console
                     throw new Error(`Error in google auth ${resp}`);
                 }
                 signIn(resp?.data?.results)
-
+                setLoading(false)
             }
             catch (err) {
+                setLoading(false);
                 console.log(err);
             }
         }
         catch (err) {
+            setLoading(false);
             console.log("err", err);
         }
     }
@@ -34,10 +41,20 @@ const SignIn = () => {
 
     return (
         <>
-            <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
-                <div className="w-full max-w-sm">
-                    <GoogleLogin onSuccess={resMessage} onError={errorMessage} useOneTap />
-                </div>
+            <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10 flex-col gap-2">
+                <ConditionalRender condition={() => loading}>
+                    <p className="text-sm text-gray-600 text-center">
+                        Backend is hosted on Render (free tier), so it may take a moment. Thanks for your patience 🙏
+                    </p>
+                    <LoadingUi/>
+                </ConditionalRender>
+                <ConditionalRender condition={() => !loading}>
+                    <div className="w-full max-w-sm">
+                        <GoogleLogin onSuccess={resMessage} onError={errorMessage} useOneTap />
+                    </div>
+                </ConditionalRender>
+
+
             </div>
         </>
     )
