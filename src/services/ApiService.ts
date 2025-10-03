@@ -1,8 +1,9 @@
+import type { AxiosResponse } from "axios";
 import BaseService from "./BaseService";
 
-async function fetchData(params:any):Promise<Response>{
+async function fetchData(params:any):Promise<AxiosResponse>{
     try{
-        const response:Response = await BaseService(params)
+        const response:AxiosResponse = await BaseService(params)
         return response
     }
     catch(err){

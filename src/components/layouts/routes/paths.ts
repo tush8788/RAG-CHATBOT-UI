@@ -1,6 +1,6 @@
 import SignIn from "../../../views/auth/signIn"
-// import ChatUi from "../../../views/chat"
-import Dashboard from "../../../views/dashbaord"
+import ChatUi from "../../../views/chat"
+import Temp from "../../../views/chat/Temp"
 export const unAuthticatedPaths = [
     {
         path:'signIn',
@@ -11,6 +11,10 @@ export const unAuthticatedPaths = [
 export const AuthenticatedPaths = [
     {
         path:'/',
-        component:Dashboard   
+        component: Temp
+    },
+    {
+        path:'/chat/:chatId',
+        component:ChatUi 
     }
 ]

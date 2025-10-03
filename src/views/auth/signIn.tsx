@@ -1,6 +1,4 @@
 import { GoogleLogin } from "@react-oauth/google"
-import axios from "axios"
-import appConfig from "../../utils/app.config"
 import useAuth from "../../utils/hooks/useAuth"
 import { useState } from "react"
 import ConditionalRender from "../../components/shared/ConditionalRender"
@@ -14,9 +12,8 @@ const SignIn = () => {
         try {
             try {
                 setLoading(true)
-                let resp:any = await verifyGoogleToken({token: response.credential})
+                let resp = await verifyGoogleToken({token: response.credential})
                 if (!resp?.data?.success) {
-                    console
                     throw new Error(`Error in google auth ${resp}`);
                 }
                 signIn(resp?.data?.results)

@@ -1,6 +1,7 @@
 import { Layout, theme } from 'antd';
 import Sidebar from './components/SidebarUi';
 import HeaderUi from './components/HeaderUi';
+import { Outlet } from 'react-router-dom';
 
 const { Content } = Layout;
 
@@ -15,13 +16,13 @@ const Dashboard = () => {
                     <Content
                         style={{
                             margin: '24px 16px',
-                            padding: 24,
+                            // padding: 24,
                             minHeight: 280,
                             background: colorBgContainer,
                             borderRadius: borderRadiusLG,
                         }}
                     >
-                        Content
+                        <Outlet/>
                     </Content>
                 </Layout>
             </Layout>
