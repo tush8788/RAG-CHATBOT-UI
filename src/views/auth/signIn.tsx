@@ -5,6 +5,7 @@ import useAuth from "../../utils/hooks/useAuth"
 import { useState } from "react"
 import ConditionalRender from "../../components/shared/ConditionalRender"
 import LoadingUi from "../../components/shared/LoadingUi"
+import { verifyGoogleToken } from "../../services/AuthService"
 
 const SignIn = () => {
     const { signIn } = useAuth()
@@ -13,10 +14,7 @@ const SignIn = () => {
         try {
             try {
                 setLoading(true)
-                let resp = await axios.post(`${appConfig.apiUrl}/user/verify-google-token`, {
-                    token: response.credential
-                })
-                console.log("resp ", resp.data.results)
+                let resp:any = await verifyGoogleToken({token: response.credential})
                 if (!resp?.data?.success) {
                     console
                     throw new Error(`Error in google auth ${resp}`);

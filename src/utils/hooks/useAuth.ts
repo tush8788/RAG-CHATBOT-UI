@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from "../../store/hooks"
 import { updateUser } from "../../store/slice/userSlice"
 import { isEmpty } from "lodash"
-const LOCALSTOREAGEKEY = 'userInfo';
+export const LOCALSTOREAGEKEY = 'userInfo';
 
 const useAuth = () => {
     const dispatch = useAppDispatch()
