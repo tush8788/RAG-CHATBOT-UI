@@ -33,9 +33,9 @@ const dashboardSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(getChatList.fulfilled, (state, action) => {
             state.chatList = action.payload
-        }).addCase(getChatList.pending, (state, action) => {
+        }).addCase(getChatList.pending, () => {
 
-        }).addCase(getChatList.rejected, (state, action) => {
+        }).addCase(getChatList.rejected, (state) => {
             state.chatList = [];
         })
     }
