@@ -1,5 +1,5 @@
 const Temp = () => {
-    return<>dsdmsk</>
+    return<>Connect</>
 }
 
 export default Temp

@@ -4,18 +4,21 @@ import { BrowserRouter } from 'react-router-dom'
 import { store } from "./store/store"
 import { GoogleOAuthProvider } from "@react-oauth/google"
 import appConfig from "./utils/app.config"
+import ThemeProviderLayout from "./components/layouts/commonLayouts/ThemeProviderLayout"
 
 function App() {
 
   return (
+
     <GoogleOAuthProvider clientId={appConfig.googleClientId}>
       <Provider store={store}>
-        <BrowserRouter>
-          <Navigation />
-        </BrowserRouter>
+        <ThemeProviderLayout>
+          <BrowserRouter>
+            <Navigation />
+          </BrowserRouter>
+        </ThemeProviderLayout>
       </Provider>
     </GoogleOAuthProvider>
-
   )
 }
 

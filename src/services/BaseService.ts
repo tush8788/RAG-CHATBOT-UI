@@ -27,6 +27,7 @@ BaseService.interceptors.response.use((response:any)=>response,(err:any)=>{
     const {response} = err;
     if(response && response.status == 401){
         //clear token
+        localStorage.removeItem(LOCALSTOREAGEKEY)
     }
     return Promise.reject(err);
 })

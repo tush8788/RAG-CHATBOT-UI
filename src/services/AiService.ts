@@ -15,8 +15,18 @@ const fetchAllChats = async () => {
     })
 }
 
+const deleteChat = async (data:any) => {
+    return fetchData({
+        url:'ai/delete-chat',
+        method:'delete',
+        data
+    })
+}
+
+
 
 export {
     fetchArticleData,
-    fetchAllChats
+    fetchAllChats,
+    deleteChat
 }

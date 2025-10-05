@@ -5,7 +5,7 @@ import { useAppSelector } from "../../store/hooks";
 
 const SOCKET_SERVER_URL = appConfig.apiUrl.replace(/\/api\/?$/, "");
 
-const useSocket = () => {
+const useSocket = (chatId:string) => {
 
     const [Socket, setSocket] = useState<SocketIOClient | null>(null);
     const { token } = useAppSelector((state) => state.user);
@@ -14,6 +14,7 @@ const useSocket = () => {
 
         const newSocket = io(SOCKET_SERVER_URL, {
             auth: { token },
+            query:{chatId:chatId},
             transports: ["websocket"],
         });
 
@@ -22,7 +23,7 @@ const useSocket = () => {
         return () => {
             newSocket.disconnect();
         };
-    }, [token]);
+    }, [token,chatId]);
 
     useEffect(() => {
         if (!Socket) return;

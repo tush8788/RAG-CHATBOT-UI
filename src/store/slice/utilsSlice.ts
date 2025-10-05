@@ -11,12 +11,13 @@ const utilsSlice = createSlice({
     name: 'utils',
     initialState: {
         theme: {
-            mode: 'light'
+            mode:  localStorage.getItem('theme') || 'light'
         },
         sidebarCollapsed: false
     } as UtilsSliceType,
     reducers: {
         updateThemeMode: (state, action) => {
+            localStorage.setItem('theme',action.payload)
             state.theme.mode = action.payload
         },
         updateSidebarCollapsed: (state, action) => {
