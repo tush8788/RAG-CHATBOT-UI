@@ -11,6 +11,7 @@ import ChatList from "./ChatList"
 import { updateThemeMode } from "../../../store/slice/utilsSlice"
 import { GoMoon, GoSun } from "react-icons/go";
 import { FaRegUser } from "react-icons/fa6"
+import useAuth from "../../../utils/hooks/useAuth"
 
 
 const Sidebar = () => {
@@ -18,6 +19,7 @@ const Sidebar = () => {
     const {sidebarCollapsed} = utils
     const [openNewChat, setOpenNewChat] = useState(false)
     const dispatch = useAppDispatch()
+    const {signOut} = useAuth()
    
     const MenuSelect = (elem: any) => {
         if (elem.key == 'new_chat') {
@@ -58,7 +60,7 @@ const Sidebar = () => {
         onClick: (e: any) => { 
             switch(e.key){
                 case 'logout':
-                    
+                    signOut();
                     break;
                 case 'theme':
                     let themeMode = utils.theme.mode == 'dark' ? 'light' : 'dark';
