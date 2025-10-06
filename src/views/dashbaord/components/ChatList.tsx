@@ -10,7 +10,7 @@ import { cloneDeep } from "lodash";
 
 
 
-const ChatList = () => {
+const ChatList = ({onSelect}:{onSelect:()=>void}) => {
     const { chatList } = useAppSelector((state) => state.dashboard)
     const { sidebarCollapsed } = useAppSelector((state) => state.utils)
     const dispatch = useAppDispatch()
@@ -24,7 +24,7 @@ const ChatList = () => {
     const DeleteChat = ({ chatIdInner }: { chatIdInner: string }) => {
         return (
             <div
-                className="absolute top-3 right-1"
+                className="absolute top-3 right-1 backdrop-blur-md"
                 onClick={async (e) => {
                     try {
                         e.stopPropagation();
@@ -63,7 +63,7 @@ const ChatList = () => {
         <>
             <Menu
                 defaultSelectedKeys={[`${chatId}`]}
-                onSelect={(info) => { NavigatePage(info.key); console.log(info) }}
+                onSelect={(info) => { NavigatePage(info.key); onSelect(); }}
                 mode="inline"
                 inlineCollapsed={false}
                 items={sidebarCollapsed ? [] : items}
