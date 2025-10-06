@@ -15,7 +15,6 @@ import useAuth from "../../../utils/hooks/useAuth"
 
 
 const InnerElements = ({ sidebarCollapsed, openNewChat, MenuSelect, menuProps, user, type, onClose }: any) => {
-    console.log("user.profileImage ",user.profileImage)
     return (
         <>
             <div className="flex items-center space-x-3 demo-logo-vertical p-2 pl-5">
@@ -82,7 +81,6 @@ const Sidebar = () => {
             label: utils.theme.mode == 'dark' ? 'Light' : 'Dark',
             key: 'theme',
             icon: utils.theme.mode == 'dark' ? <GoSun size={20} /> : <GoMoon size={20} />,
-            onclick: () => { console.log("clieck") }
         },
         {
             label: 'Log out',
@@ -140,40 +138,6 @@ const Sidebar = () => {
                         type='desktop'
                         onClose={() => { }}
                     />
-                    {/* <div className="flex items-center space-x-3 demo-logo-vertical p-2 pl-5">
-                        <div className="demo-logo-vertical bg-blue-500 rounded-full p-2">
-                            <Bot className="text-xl text-white" />
-                        </div>
-                        <ConditionalRender condition={() => !sidebarCollapsed}>
-                            <Typography.Title level={4} className="text-xl font-semibold text-gray-800 !mb-0">RAG.AI</Typography.Title>
-                        </ConditionalRender>
-                    </div>
-
-                    <Menu
-                        theme="light"
-                        mode="inline"
-                        selectedKeys={openNewChat ? ["new_chat"] : []}
-                        onSelect={MenuSelect}
-                        defaultSelectedKeys={[]}
-                        items={[
-                            {
-                                key: 'new_chat',
-                                icon: <PiNotePencil size={20} />,
-                                label: 'New Chat',
-                            }
-                        ]}
-                    />
-
-                    <ChatList onSelect={()=>{}}/>
-
-                    <Dropdown menu={menuProps}>
-                        <div className="flex items-center gap-2 space-x-3 demo-logo-vertical p-2 pl-5">
-                            <Avatar src={user.profileImage} style={{ backgroundColor: '#fde3cf', color: '#f56a00' }} />
-                            <ConditionalRender condition={() => !sidebarCollapsed}>
-                                <Typography.Paragraph className="!mb-0">{user.name}</Typography.Paragraph>
-                            </ConditionalRender>
-                        </div>
-                    </Dropdown> */}
                 </Sider>
             </ConditionalRender>
             <ConditionalRender condition={() => openNewChat}>
