@@ -1,4 +1,4 @@
-import { Button, Form, Input, Modal } from 'antd';
+import { Button, Form, Input, Modal, message } from 'antd';
 import { fetchArticleData } from '../../../services/AiService';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
@@ -6,14 +6,16 @@ import { updateChatList } from '../../../store/slice/dashboardSlice';
 import { cloneDeep } from 'lodash';
 import { useState } from 'react';
 
+
 const CreateNewChat = ({ open, setClose }: { open: boolean, setClose: () => void }) => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-    const [loading,setLoading] = useState(false)
-    const {chatList} = useAppSelector((state)=>state.dashboard)
+    const [loading, setLoading] = useState(false)
+    const { chatList } = useAppSelector((state) => state.dashboard)
+    const [messageApi, contextHolder] = message.useMessage();
 
-    const onSubmit = async (values:{url:string}) => {
-        try{
+    const onSubmit = async (values: { url: string }) => {
+        try {
             setLoading(true)
             let resp = await fetchArticleData({url:values.url})
             console.log("resp",resp);
@@ -25,22 +27,31 @@ const CreateNewChat = ({ open, setClose }: { open: boolean, setClose: () => void
             navigate(`/chat/${resp?.data?.results?.chatId}`)
             setLoading(false)
             setClose();
-        }catch(err){
+            messageApi.open({
+                type: 'success',
+                content: 'Done',
+            });
+        } catch (err) {
             setLoading(false)
             console.log(err);
+            messageApi.open({
+                type: 'error',
+                content: 'Error',
+            });
         }
-    } 
+    }
 
     const [form] = Form.useForm();
 
     return (
         <>
+            {contextHolder}
             <Modal
                 open={open}
                 title="Create New Chat"
                 onOk={setClose}
                 onCancel={setClose}
-                footer={()=><></>}
+                footer={() => <></>}
             >
                 <div>
                     <div>Chat with article</div>
@@ -50,13 +61,13 @@ const CreateNewChat = ({ open, setClose }: { open: boolean, setClose: () => void
                         initialValues={{ url: '' }}
                         onFinish={onSubmit}
                     >
-                        <Form.Item label="Url" name="url"  rules={[{ required: true, message: 'Required!' }]}>
-                            <Input placeholder="Enter or peaste article url"/>
+                        <Form.Item label="Url" name="url" rules={[{ required: true, message: 'Required!' }]}>
+                            <Input placeholder="Enter or peaste article url" />
                         </Form.Item>
                         <Form.Item>
                             <Button htmlType='submit' loading={loading} type="primary">Start Chat</Button>
                         </Form.Item>
-                    </Form>                    
+                    </Form>
                 </div>
             </Modal>
         </>
