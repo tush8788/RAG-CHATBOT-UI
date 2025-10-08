@@ -28,6 +28,7 @@ BaseService.interceptors.response.use((response:any)=>response,(err:any)=>{
     if(response && response.status == 401){
         //clear token
         localStorage.removeItem(LOCALSTOREAGEKEY)
+        return window.location.href = '/signin'; // force redirect
     }
     return Promise.reject(err);
 })

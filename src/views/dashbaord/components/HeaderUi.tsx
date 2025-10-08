@@ -42,6 +42,7 @@ const HeaderUi = () => {
                     height: 64,
                 }}
             />
+            {chatId && 
             <Button
                 type="text"
                 className="pr-2"
@@ -54,6 +55,7 @@ const HeaderUi = () => {
             >
                 {isMindMap ? 'Chat' : 'Mindmap'}
             </Button>
+            }
         </Header>
     )
 }
