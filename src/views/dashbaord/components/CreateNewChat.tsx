@@ -21,7 +21,7 @@ const CreateNewChat = ({ open, setClose }: { open: boolean, setClose: () => void
             console.log("resp",resp);
             if(!resp?.data?.status) throw new Error(`${resp}`)
             let cloneChatList = cloneDeep(chatList);
-            cloneChatList.push(resp?.data?.results);
+            cloneChatList.push(resp?.data?.results || []);
             console.log("resp?.data?.results ",resp?.data?.results)
             dispatch(updateChatList(cloneChatList));
             navigate(`/chat/${resp?.data?.results?.chatId}`)

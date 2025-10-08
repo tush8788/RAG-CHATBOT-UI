@@ -23,10 +23,18 @@ const deleteChat = async (data:any) => {
     })
 }
 
+const getMarkupString = async (data:any) => {
+    return fetchData({
+        url:'ai/markup',
+        method:'post',
+        data
+    })
+}
 
 
 export {
     fetchArticleData,
     fetchAllChats,
-    deleteChat
+    deleteChat,
+    getMarkupString
 }

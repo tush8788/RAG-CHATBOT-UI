@@ -4,16 +4,34 @@ import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import {
     MenuFoldOutlined,
     MenuUnfoldOutlined,
+    WechatWorkOutlined,
 } from '@ant-design/icons';
 import { updateSidebarCollapsed } from "../../../store/slice/utilsSlice";
+import { RiMindMap } from "react-icons/ri";
+import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 const HeaderUi = () => {
     const { sidebarCollapsed } = useAppSelector((state) => state.utils)
+    const [isMindMap, setMindMap] = useState(false)
     const disptch = useAppDispatch()
     const { token: { colorBgContainer }, } = theme.useToken();
+    const { chatId } = useParams();
+    const navigate = useNavigate()
+
+    const showMindMap = () => {
+        if (isMindMap) {
+            setMindMap(false);
+            navigate(`/chat/${chatId}`)
+        } else {
+            setMindMap(true);
+            navigate(`/mindmap/${chatId}`)
+        }
+
+    }
 
     return (
-        <Header style={{ padding: 0, background: colorBgContainer }}>
+        <Header style={{ padding: 0, background: colorBgContainer }} className="flex justify-between w-full items-center">
             <Button
                 type="text"
                 icon={sidebarCollapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
@@ -24,6 +42,18 @@ const HeaderUi = () => {
                     height: 64,
                 }}
             />
+            <Button
+                type="text"
+                className="pr-2"
+                icon={ isMindMap ? <WechatWorkOutlined /> : <RiMindMap size={21} />}
+                onClick={() => showMindMap()}
+                style={{
+                    fontSize: '16px',
+                    // height: 64,
+                }}
+            >
+                {isMindMap ? 'Chat' : 'Mindmap'}
+            </Button>
         </Header>
     )
 }
