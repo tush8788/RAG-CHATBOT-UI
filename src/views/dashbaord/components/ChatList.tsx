@@ -78,7 +78,11 @@ const ChatList = ({ onSelect }: { onSelect: () => void }) => {
     ];
 
     const NavigatePage = (chat_id: string) => {
-        navigate(`/chat/${chat_id}`)
+        console.log("window.location.pathname ==> ",)
+        if(window.location.pathname.includes('mindmap'))
+            navigate(`mindmap/${chat_id}`)
+        else
+            navigate(`chat/${chat_id}`)
     }
 
     return (

@@ -26,7 +26,7 @@ const MindMap = () => {
 
   useEffect(() => {
     getMarkup();
-  }, [])
+  }, [chatId])
 
   useEffect(() => {
     const transformer = new Transformer();
@@ -40,7 +40,7 @@ const MindMap = () => {
   const handleFit = () => mm?.fit();
 
   return (
-    <div className={`w-full h-full ${mode == 'light' && 'bg-gray-50'}`}>
+    <div key={chatId} className={`w-full h-full ${mode == 'light' && 'bg-gray-50'}`}>
       <svg ref={svgRef} className="w-full h-[93%]" />
       <div className="flex justify-end gap-2 mr-2">
         <Button shape="circle" onClick={handleFit} icon={<ExpandOutlined />} />
