@@ -3,6 +3,7 @@ import { Send, User, Bot } from 'lucide-react';
 import useSocket from "../../utils/hooks/useSocket";
 import { useParams } from "react-router-dom";
 import { useAppSelector } from "../../store/hooks";
+import { Avatar } from "antd";
 
 type MessageType = {
     role: 'user' | 'model' | 'error',
@@ -12,13 +13,8 @@ type MessageType = {
 const ChatUi = () => {
     const { chatId = '' } = useParams();
     const {mode} = useAppSelector((state)=>state.utils.theme)
-    console.log("chatId ", chatId)
-    
+    const {user} = useAppSelector((state)=>state)
     const { Socket, makeEvent } = useSocket(chatId);
-    
-    useEffect(() => {
-        console.log("render")
-    }, [])
 
     useEffect(() => {
         Socket?.on('chat_history', (allMessages: MessageType[]) => {
@@ -29,9 +25,6 @@ const ChatUi = () => {
             setMessages((prev) => [...prev, messageObj])
             setIsTyping(false);
         })
-        return () => {
-            console.log("return ")
-        }
     }, [Socket])
 
     const [messages, setMessages] = useState<MessageType[]>([]);
@@ -67,7 +60,7 @@ const ChatUi = () => {
 
     return (
         <>
-                <div className={` flex flex-col h-full bg-gray-50 ${mode == 'dark' && '!bg-black'}`}>
+                <div className={` flex flex-col h-full  ${mode == 'dark' && '!bg-black'}`}>
                     <div className="flex-1 overflow-y-auto px-6 py-4 space-y-4">
                         {messages.map((message, index) => (
                             <div
@@ -77,8 +70,8 @@ const ChatUi = () => {
                                 <div className={`flex items-start space-x-3 max-w-xs lg:max-w-md ${message.role == 'user' ? 'flex-row-reverse space-x-reverse' : ''}`}>
                                     <div className="flex-shrink-0">
                                         {message.role == 'user' ? (
-                                            <div className="bg-gray-600 rounded-full p-1.5">
-                                                <User className="text-lg text-white" />
+                                            <div className="rounded-full p-1.5">
+                                                <Avatar size={35} src={user.profileImage } icon={<User className="text-lg text-white" />}/>
                                             </div>
                                         ) : (
                                             <div className="bg-blue-500 rounded-full p-1.5">

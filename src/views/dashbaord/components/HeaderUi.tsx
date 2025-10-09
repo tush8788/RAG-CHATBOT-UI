@@ -12,7 +12,7 @@ import { useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 const HeaderUi = () => {
-    const { sidebarCollapsed } = useAppSelector((state) => state.utils)
+    const { utils } = useAppSelector((state) => state)
     const disptch = useAppDispatch()
     const { token: { colorBgContainer }, } = theme.useToken();
     const { chatId } = useParams();
@@ -33,15 +33,15 @@ const HeaderUi = () => {
     }
 
     return (
-        <Header style={{ padding: 0, background: colorBgContainer }} className="flex justify-between w-full items-center">
+        <Header style={{ padding: 0, background: colorBgContainer }} className={`flex justify-between w-full items-center !h-[52px] ${utils.theme.mode == 'light' && "border-b border-gray-200"}`}>
             <Button
                 type="text"
-                icon={sidebarCollapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-                onClick={() => disptch(updateSidebarCollapsed(!sidebarCollapsed))}
+                icon={utils.sidebarCollapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+                onClick={() => disptch(updateSidebarCollapsed(!utils.sidebarCollapsed))}
                 style={{
                     fontSize: '16px',
-                    width: 64,
-                    height: 64,
+                    // width: 64, 
+                    // height: 64,
                 }}
             />
             {chatId &&

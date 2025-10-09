@@ -14,21 +14,22 @@ import { FaRegUser } from "react-icons/fa6"
 import useAuth from "../../../utils/hooks/useAuth"
 
 
-const InnerElements = ({ sidebarCollapsed, openNewChat, MenuSelect, menuProps, user, type, onClose }: any) => {
+const InnerElements = ({ sidebarCollapsed, openNewChat, MenuSelect, menuProps, user, type, onClose,theme }: any) => {
     return (
-        <>
+        <div className={`${(type =='desktop' && theme.mode=='light') && "border-r border-gray-200 bg-[#F9F9F9]"}`}>
             <div className="flex items-center space-x-3 demo-logo-vertical p-2 pl-5">
                 <div className="demo-logo-vertical bg-blue-500 rounded-full p-2">
-                    <Bot className="text-xl text-white" />
+                    <Bot className="text-xl text-white" size={20}/>
                 </div>
                 <ConditionalRender condition={() => !sidebarCollapsed}>
-                    <Typography.Title level={4} className="text-xl font-semibold text-gray-800 !mb-0">RAG.AI</Typography.Title>
+                    <Typography.Title level={5} className="text-xl font-semibold text-gray-800 !mb-0">RAG.AI</Typography.Title>
                 </ConditionalRender>
             </div>
 
             <Menu
                 theme="light"
                 mode="inline"
+                className={`!border-none !bg-transparent`}
                 selectedKeys={openNewChat ? ["new_chat"] : []}
                 onSelect={MenuSelect}
                 defaultSelectedKeys={[]}
@@ -51,14 +52,14 @@ const InnerElements = ({ sidebarCollapsed, openNewChat, MenuSelect, menuProps, u
                     </ConditionalRender>
                 </div>
             </Dropdown>
-        </>
+        </div>
     )
 }
 
 
 const Sidebar = () => {
     const { utils, user } = useAppSelector((state) => state)
-    const { sidebarCollapsed } = utils
+    const { sidebarCollapsed,theme } = utils
     const [openNewChat, setOpenNewChat] = useState(false)
     const dispatch = useAppDispatch()
     const { signOut } = useAuth()
@@ -78,9 +79,9 @@ const Sidebar = () => {
             disabled: true,
         },
         {
-            label: utils.theme.mode == 'dark' ? 'Light' : 'Dark',
+            label: theme.mode == 'dark' ? 'Light' : 'Dark',
             key: 'theme',
-            icon: utils.theme.mode == 'dark' ? <GoSun size={20} /> : <GoMoon size={20} />,
+            icon: theme.mode == 'dark' ? <GoSun size={20} /> : <GoMoon size={20} />,
         },
         {
             label: 'Log out',
@@ -124,6 +125,7 @@ const Sidebar = () => {
                         user={user}
                         type='mobile'
                         onClose={() => { dispatch(updateSidebarCollapsed(!sidebarCollapsed)) }}
+                        theme={theme}
                     />
                 </Drawer>
             </ConditionalRender>
@@ -137,6 +139,7 @@ const Sidebar = () => {
                         user={user}
                         type='desktop'
                         onClose={() => { }}
+                        theme={theme}
                     />
                 </Sider>
             </ConditionalRender>

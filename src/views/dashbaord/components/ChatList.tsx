@@ -1,4 +1,4 @@
-import { Menu, Popconfirm } from "antd"
+import { Dropdown, Menu, Popconfirm, Spin } from "antd"
 import React, { useEffect, useState } from "react"
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { getChatList, updateChatList } from "../../../store/slice/dashboardSlice";
@@ -6,7 +6,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { MdDeleteOutline } from "react-icons/md";
 import { deleteChat } from "../../../services/AiService";
 import { cloneDeep } from "lodash";
-import { QuestionCircleOutlined } from '@ant-design/icons';
+import { LoadingOutlined, QuestionCircleOutlined } from '@ant-design/icons';
+import { BsThreeDotsVertical } from "react-icons/bs";
 
 
 
@@ -24,7 +25,7 @@ const ChatList = ({ onSelect }: { onSelect: () => void }) => {
     }, [])
 
     const DeleteChat = ({ chatIdInner }: { chatIdInner: string }) => {
-        const [open, setOpen] = useState(false)
+        // const [open, setOpen] = useState(false)
         const [loading, setLoading] = useState(false)
 
         const onDeleteChat = async () => {
@@ -33,39 +34,29 @@ const ChatList = ({ onSelect }: { onSelect: () => void }) => {
                 await deleteChat({ chatId: chatIdInner })
                 let cloneChatList = cloneDeep(chatList);
                 cloneChatList = cloneChatList.filter((c) => c.chatId != chatIdInner)
-                if (chatId == chatIdInner) {
-                    navigate('/');
-                }
+                // if (chatId == chatIdInner) {
+                navigate('/');
+                // }
                 dispatch(updateChatList(cloneChatList));
                 setLoading(false);
-                setOpen(false)
+                // setOpen(false)
                 onSelect();
 
             } catch (err) {
                 setLoading(false);
-                setOpen(false)
+                // setOpen(false)
                 console.log("error", err);
             }
         }
 
-        return (<>
-            <Popconfirm
-                title="Delete the chat"
-                description="Are you sure to delete this chat?"
-                open={open}
-                onConfirm={onDeleteChat}
-                okButtonProps={{ loading: loading }}
-                onCancel={() => setOpen(false)}
-                icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
-            >
-                <div
-                    className="absolute top-3 right-1 backdrop-blur-md"
-                    onClick={(e) => { e.stopPropagation(); e.preventDefault(); setOpen(true) }}
-                >
-                    <MdDeleteOutline size={20} />
-                </div>
-            </Popconfirm>
-        </>)
+        return (
+            <>
+
+                <Dropdown menu={{ items: [{ label: 'Delete', key: 'delete', icon: <MdDeleteOutline size={20} /> }], onClick: (key) => { onDeleteChat() } }}>
+                    {loading ? <Spin indicator={<LoadingOutlined spin />} size="small" /> : <BsThreeDotsVertical />}
+                </Dropdown>
+            </>
+        )
     }
 
     const items: any = [
@@ -73,13 +64,13 @@ const ChatList = ({ onSelect }: { onSelect: () => void }) => {
             key: 'grp',
             label: 'Chats',
             type: 'group',
-            children: chatList.map((chat) => ({ key: chat.chatId, label: chat.title, extra: <DeleteChat chatIdInner={chat.chatId} /> })),
+            children: chatList.map((chat) => ({ key: chat.chatId, label: <div className="truncate">{chat.title}</div>, extra: <DeleteChat chatIdInner={chat.chatId} /> })),
         },
     ];
 
     const NavigatePage = (chat_id: string) => {
         console.log("window.location.pathname ==> ",)
-        if(window.location.pathname.includes('mindmap'))
+        if (window.location.pathname.includes('mindmap'))
             navigate(`mindmap/${chat_id}`)
         else
             navigate(`chat/${chat_id}`)
@@ -93,7 +84,7 @@ const ChatList = ({ onSelect }: { onSelect: () => void }) => {
                 mode="inline"
                 inlineCollapsed={false}
                 items={sidebarCollapsed ? [] : items}
-                className="h-[79vh]  overflow-y-auto"
+                className="h-[79vh]  overflow-y-auto !bg-transparent !border-none"
             />
         </>
     )

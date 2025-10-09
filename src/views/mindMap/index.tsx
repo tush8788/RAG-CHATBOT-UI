@@ -9,7 +9,7 @@ import { useAppSelector } from "../../store/hooks";
 
 const MindMap = () => {
   const { chatId } = useParams()
-  const {mode} = useAppSelector((state)=>state.utils.theme)
+  const { mode } = useAppSelector((state) => state.utils.theme)
   const [markup, setMarkup] = useState('')
   const getMarkup = async () => {
     try {
@@ -40,7 +40,10 @@ const MindMap = () => {
   const handleFit = () => mm?.fit();
 
   return (
-    <div key={chatId} className={`w-full h-full ${mode == 'light' && 'bg-gray-50'}`}>
+    <div
+      key={chatId}
+      className={`relative w-full h-full ${mode === "light" ? "bg-gray-50 bg-[radial-gradient(#d1d5db_1px,transparent_1px)]" : "bg-gray-400 bg-[radial-gradient(#374151_0.1px,transparent_1px)]"} [background-size:16px_16px]`}
+    >
       <svg ref={svgRef} className="w-full h-[93%]" />
       <div className="flex justify-end gap-2 mr-2">
         <Button shape="circle" onClick={handleFit} icon={<ExpandOutlined />} />
