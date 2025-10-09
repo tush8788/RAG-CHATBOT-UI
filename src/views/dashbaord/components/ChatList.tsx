@@ -1,4 +1,4 @@
-import { Dropdown, Menu, Popconfirm, Spin } from "antd"
+import { Dropdown, Menu, Spin } from "antd"
 import React, { useEffect, useState } from "react"
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { getChatList, updateChatList } from "../../../store/slice/dashboardSlice";
@@ -6,7 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { MdDeleteOutline } from "react-icons/md";
 import { deleteChat } from "../../../services/AiService";
 import { cloneDeep } from "lodash";
-import { LoadingOutlined, QuestionCircleOutlined } from '@ant-design/icons';
+import { LoadingOutlined } from '@ant-design/icons';
 import { BsThreeDotsVertical } from "react-icons/bs";
 
 
