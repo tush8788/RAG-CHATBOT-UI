@@ -52,7 +52,7 @@ const ChatList = ({ onSelect }: { onSelect: () => void }) => {
         return (
             <>
 
-                <Dropdown menu={{ items: [{ label: 'Delete', key: 'delete', icon: <MdDeleteOutline size={20} /> }], onClick: (key) => { onDeleteChat() } }}>
+                <Dropdown menu={{ items: [{ label: 'Delete', key: 'delete', icon: <MdDeleteOutline size={20} /> }], onClick: () => { onDeleteChat() } }}>
                     {loading ? <Spin indicator={<LoadingOutlined spin />} size="small" /> : <BsThreeDotsVertical />}
                 </Dropdown>
             </>
