@@ -16,7 +16,7 @@ import useAuth from "../../../utils/hooks/useAuth"
 
 const InnerElements = ({ sidebarCollapsed, openNewChat, MenuSelect, menuProps, user, type, onClose,theme }: any) => {
     return (
-        <div className={`${(type =='desktop' && theme.mode=='light') && "border-r border-gray-200 bg-[#F9F9F9]"}`}>
+        <div className={`${(type =='desktop' && theme.mode=='light') && "border-r border-gray-200 bg-[#F9F9F9]"} h-full`}>
             <div className="flex items-center space-x-3 demo-logo-vertical p-2 pl-5">
                 <div className="demo-logo-vertical bg-blue-500 rounded-full p-2">
                     <Bot className="text-xl text-white" size={20}/>

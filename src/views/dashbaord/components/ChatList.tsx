@@ -9,12 +9,8 @@ import { cloneDeep } from "lodash";
 import { LoadingOutlined } from '@ant-design/icons';
 import { BsThreeDotsVertical } from "react-icons/bs";
 
-
-
-
-
 const ChatList = ({ onSelect }: { onSelect: () => void }) => {
-    const { chatList } = useAppSelector((state) => state.dashboard)
+    const { chatList, chatListFetching } = useAppSelector((state) => state.dashboard)
     const { sidebarCollapsed } = useAppSelector((state) => state.utils)
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
@@ -52,7 +48,7 @@ const ChatList = ({ onSelect }: { onSelect: () => void }) => {
         return (
             <>
 
-                <Dropdown menu={{ items: [{ label: 'Delete', key: 'delete', icon: <MdDeleteOutline size={20} /> }], onClick: () => { onDeleteChat() } }}>
+                <Dropdown menu={{ items: [{ label: 'Delete', key: 'delete', icon: <MdDeleteOutline size={20} /> }], onClick: (e) => { e.domEvent.preventDefault();e.domEvent.stopPropagation() ;onDeleteChat() } }}>
                     {loading ? <Spin indicator={<LoadingOutlined spin />} size="small" /> : <BsThreeDotsVertical />}
                 </Dropdown>
             </>
@@ -77,16 +73,18 @@ const ChatList = ({ onSelect }: { onSelect: () => void }) => {
     }
 
     return (
-        <>
-            <Menu
-                defaultSelectedKeys={[`${chatId}`]}
-                onSelect={(info) => { NavigatePage(info.key); onSelect(); }}
-                mode="inline"
-                inlineCollapsed={false}
-                items={sidebarCollapsed ? [] : items}
-                className="h-[79vh]  overflow-y-auto !bg-transparent !border-none"
-            />
-        </>
+        <div className={`${chatListFetching && 'h-[79vh] flex items-center justify-center w-[250px]'}`}>
+            <Spin spinning={chatListFetching} size="large" tip="Loading">
+                <Menu
+                    defaultSelectedKeys={[`${chatId}`]}
+                    onSelect={(info) => { NavigatePage(info.key); onSelect(); }}
+                    mode="inline"
+                    inlineCollapsed={false}
+                    items={sidebarCollapsed ? [] : items}
+                    className=" h-[79vh]  overflow-y-auto !bg-transparent !border-none"
+                />
+            </Spin>
+        </div>
     )
 }
 
