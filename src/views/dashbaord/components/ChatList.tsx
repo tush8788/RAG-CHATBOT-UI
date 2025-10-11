@@ -1,4 +1,4 @@
-import { Dropdown, List, Menu, Skeleton, Spin } from "antd"
+import { Dropdown, Menu, Skeleton, Spin } from "antd"
 import React, { useEffect, useState } from "react"
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { getChatList, updateChatList } from "../../../store/slice/dashboardSlice";
