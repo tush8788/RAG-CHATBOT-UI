@@ -1,4 +1,4 @@
-import { Dropdown, Menu, Spin } from "antd"
+import { Dropdown, List, Menu, Skeleton, Spin } from "antd"
 import React, { useEffect, useState } from "react"
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { getChatList, updateChatList } from "../../../store/slice/dashboardSlice";
@@ -74,7 +74,7 @@ const ChatList = ({ onSelect }: { onSelect: () => void }) => {
 
     return (
         <div className={`${chatListFetching && 'h-[79vh] flex items-center justify-center w-[250px]'}`}>
-            <Spin spinning={chatListFetching} size="large" tip="Loading">
+            <Skeleton loading={chatListFetching} active paragraph={{rows:18,width:0}} className="p-4">
                 <Menu
                     defaultSelectedKeys={[`${chatId}`]}
                     onSelect={(info) => { NavigatePage(info.key); onSelect(); }}
@@ -83,7 +83,7 @@ const ChatList = ({ onSelect }: { onSelect: () => void }) => {
                     items={sidebarCollapsed ? [] : items}
                     className=" h-[79vh]  overflow-y-auto !bg-transparent !border-none"
                 />
-            </Spin>
+            </Skeleton>
         </div>
     )
 }
