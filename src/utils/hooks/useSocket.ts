@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import appConfig from "../app.config";
 import { io, Socket as SocketIOClient } from "socket.io-client";
 import { useAppSelector } from "../../store/hooks";
+import useAuth from "./useAuth";
 
 const SOCKET_SERVER_URL = appConfig.apiUrl.replace(/\/api\/?$/, "");
 
-const useSocket = (chatId:string) => {
-
+const useSocket = (chatId: string) => {
+    const {signOut} = useAuth()
     const [Socket, setSocket] = useState<SocketIOClient | null>(null);
     const { token } = useAppSelector((state) => state.user);
     useEffect(() => {
@@ -14,7 +15,7 @@ const useSocket = (chatId:string) => {
 
         const newSocket = io(SOCKET_SERVER_URL, {
             auth: { token },
-            query:{chatId:chatId},
+            query: { chatId: chatId },
             transports: ["websocket"],
         });
 
@@ -23,7 +24,7 @@ const useSocket = (chatId:string) => {
         return () => {
             newSocket.disconnect();
         };
-    }, [token,chatId]);
+    }, [token, chatId]);
 
     useEffect(() => {
         if (!Socket) return;
@@ -33,6 +34,12 @@ const useSocket = (chatId:string) => {
         };
 
         Socket.on("chat_list", handleChatList);
+
+        Socket.on("connect_error", (err: any) => {
+            if(err?.data?.code == 401){
+                signOut();
+            }
+        });
 
         return () => {
             Socket.off("chat_list", handleChatList);

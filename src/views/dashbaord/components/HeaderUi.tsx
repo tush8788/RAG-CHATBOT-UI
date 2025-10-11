@@ -46,8 +46,8 @@ const HeaderUi = () => {
             />
             {chatId &&
                 <Button
-                    type="text"
-                    className="pr-2"
+                    type="dashed"
+                    className="mr-4"
                     icon={isMindMap ? <WechatWorkOutlined /> : <RiMindMap size={21} />}
                     onClick={() => showMindMap()}
                     style={{
