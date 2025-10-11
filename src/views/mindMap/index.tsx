@@ -34,7 +34,7 @@ const MindMap = () => {
       svgRef.current.style.color = '#ffff'
     else
       svgRef.current.style.color = ''
-  }, [mode])
+  }, [mode,chatId])
 
 
   useEffect(() => {
