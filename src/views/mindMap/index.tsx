@@ -29,6 +29,15 @@ const MindMap = () => {
   }, [chatId])
 
   useEffect(() => {
+    if (!svgRef.current) return
+    if (mode == 'dark')
+      svgRef.current.style.color = '#ffff'
+    else
+      svgRef.current.style.color = ''
+  }, [mode])
+
+
+  useEffect(() => {
     const transformer = new Transformer();
     const { root } = transformer.transform(markup);
     if (svgRef.current) {
@@ -42,7 +51,7 @@ const MindMap = () => {
   return (
     <div
       key={chatId}
-      className={`relative w-full h-full ${mode === "light" ? "bg-gray-50 bg-[radial-gradient(#d1d5db_1px,transparent_1px)]" : "bg-gray-400 bg-[radial-gradient(#374151_0.1px,transparent_1px)]"} [background-size:16px_16px]`}
+      className={`relative w-full h-full ${mode === "light" ? "bg-gray-50 bg-[radial-gradient(#d1d5db_1px,transparent_1px)]" : "bg-gray-900 bg-[radial-gradient(#374151_0.1px,transparent_1px)]"} [background-size:16px_16px]`}
     >
       <svg ref={svgRef} className="w-full h-[93%]" />
       <div className="flex justify-end gap-2 mr-2">
