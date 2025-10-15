@@ -61,7 +61,7 @@ const CreateNewChat = ({ open, setClose }: { open: boolean, setClose: () => void
                         initialValues={{ url: '' }}
                         onFinish={onSubmit}
                     >
-                        <Form.Item label="Url" name="url" rules={[{ required: true, message: 'Required!' }]}>
+                        <Form.Item label="Url" name="url" rules={[{ required: true, message: 'Required!',type:'url' }]}>
                             <Input placeholder="Enter or peaste article url" />
                         </Form.Item>
                         <Form.Item>

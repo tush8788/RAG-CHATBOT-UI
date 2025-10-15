@@ -8,6 +8,14 @@ const fetchArticleData = async (data:any) => {
     })
 }
 
+const createFirstChat = async (data:any) => {
+    return fetchData({
+        url:'ai/create-chat',
+        method:'post',
+        data
+    })
+}
+
 const fetchAllChats = async () => {
     return fetchData({
         url:'ai/fetch-all-chats',
@@ -36,5 +44,6 @@ export {
     fetchArticleData,
     fetchAllChats,
     deleteChat,
-    getMarkupString
+    getMarkupString,
+    createFirstChat
 }

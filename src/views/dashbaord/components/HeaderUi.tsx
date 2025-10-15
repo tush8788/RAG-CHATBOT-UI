@@ -42,7 +42,7 @@ const HeaderUi = () => {
     }
 
     return (
-        <Header style={{ padding: 0, background: colorBgContainer }} className={`flex justify-between w-full items-center !h-[52px] ${utils.theme.mode == 'light' ? "border-b border-gray-200" : '!bg-[#2a2a2a]'}`}>
+        <Header style={{ padding: 0, background: colorBgContainer }} className={`flex justify-between w-full items-center !h-[52px] ${utils.theme.mode == 'light' ? "border-b border-gray-200" : '!bg-[#1b1b1b]'}`}>
             <div className="flex justify-center items-center gap-2">
                 <Button
                     type="text"

@@ -4,7 +4,7 @@ import {isEmpty} from 'lodash'
 import { LOCALSTOREAGEKEY } from '../utils/hooks/useAuth';
 import _ from 'lodash';
 const BaseService = axios.create({
-    timeout:50000,
+    timeout:500000,
     baseURL:appConfig.apiUrl
 });
 

@@ -1,8 +1,10 @@
-import { Empty, Typography } from "antd"
+import { Typography } from "antd"
 import { useAppSelector } from "../../store/hooks"
 import { FileText, Upload, Youtube } from "lucide-react";
+import { useState } from "react";
+import CreateChat from "./components/CreateChat";
 
-const chatTypes = [
+export const chatTypes = [
     {
         id: 'article',
         title: 'Chat with Article',
@@ -26,7 +28,11 @@ const chatTypes = [
     }
 ];
 
-const Temp = () => {
+const CreateNewChat = () => {
+    const [chat,setChat] = useState<any>({
+        isOpen:false,
+        type:''
+    })
     const { mode } = useAppSelector((state) => state.utils.theme)
     return (
         <div className={`h-full flex flex-1  ${mode == 'dark' && 'bg-black'}`}>
@@ -42,7 +48,7 @@ const Temp = () => {
                                 return (
                                     <button
                                         key={type.id}
-                                        // onClick={() => openModal(type.id)}
+                                        onClick={() => {setChat({isOpen:true,type:type.id})}}
                                         className=" border-2 border-gray-200 hover:border-blue-500 rounded-xl p-6 transition-all hover:shadow-lg group"
                                     >
                                         <div className="flex flex-col items-center space-y-3">
@@ -61,9 +67,9 @@ const Temp = () => {
                     </div>
                 </div>
             </div>
-             {/* <Empty className="" image={Empty.PRESENTED_IMAGE_SIMPLE} /> */}
+            {chat.isOpen && <CreateChat open={chat.isOpen} selectedType={chat.type} setClose={()=>{setChat({isOpen:false,type:''})}}/>}
          </div>
     )
 }
 
-export default Temp
+export default CreateNewChat

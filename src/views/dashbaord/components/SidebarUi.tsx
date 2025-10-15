@@ -12,11 +12,11 @@ import { updateSidebarCollapsed, updateThemeMode } from "../../../store/slice/ut
 import { GoMoon, GoSun } from "react-icons/go";
 import { FaRegUser } from "react-icons/fa6"
 import useAuth from "../../../utils/hooks/useAuth"
-
+import { useNavigate } from "react-router-dom"
 
 const InnerElements = ({ sidebarCollapsed, openNewChat, MenuSelect, menuProps, user, type, onClose,theme }: any) => {
-    return (
-        <div className={`${(type =='desktop' && theme.mode=='light') ? "border-r border-gray-200 bg-[#F9F9F9]": (type =='desktop' && theme.mode=='dark') ? 'bg-[#2a2a2a]':''} h-full`}>
+    return ( 
+        <div className={`${(type =='desktop' && theme.mode=='light') ? "border-r border-gray-200 bg-[#F9F9F9]": (type =='desktop' && theme.mode=='dark') ? 'bg-[#1b1b1b]':''} h-full`}>
             <div className="flex items-center space-x-3 demo-logo-vertical p-2 pl-5">
                 <div className="demo-logo-vertical bg-blue-500 rounded-full p-2">
                     <Bot className="text-xl text-white" size={20}/>
@@ -61,13 +61,15 @@ const Sidebar = () => {
     const { utils, user } = useAppSelector((state) => state)
     const { sidebarCollapsed,theme } = utils
     const [openNewChat, setOpenNewChat] = useState(false)
+    const navigate = useNavigate()
     const dispatch = useAppDispatch()
     const { signOut } = useAuth()
     const { useBreakpoint } = Grid;
 
     const MenuSelect = (elem: any) => {
         if (elem.key == 'new_chat') {
-            setOpenNewChat(true);
+            // setOpenNewChat(true);
+            navigate('/')
         }
     }
 
