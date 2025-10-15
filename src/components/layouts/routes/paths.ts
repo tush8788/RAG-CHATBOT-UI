@@ -1,6 +1,6 @@
 import SignIn from "../../../views/auth/signIn"
 import ChatUi from "../../../views/chat"
-import Temp from "../../../views/chat/Temp"
+import CreateNewChat from "../../../views/chat/CreateNewChat"
 import MindMap from "../../../views/mindMap"
 export const unAuthticatedPaths = [
     {
@@ -12,7 +12,7 @@ export const unAuthticatedPaths = [
 export const AuthenticatedPaths = [
     {
         path:'/',
-        component: Temp
+        component: CreateNewChat
     },
     {
         path:'/chat/:chatId',
