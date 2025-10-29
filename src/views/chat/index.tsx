@@ -4,6 +4,7 @@ import useSocket from "../../utils/hooks/useSocket";
 import { useParams } from "react-router-dom";
 import { useAppSelector } from "../../store/hooks";
 import { Avatar } from "antd";
+import ReactMarkdown from "react-markdown";
 
 type MessageType = {
     role: 'user' | 'model' | 'error',
@@ -86,7 +87,11 @@ const ChatUi = () => {
                                             : 'bg-white text-gray-800 border border-gray-200 rounded-bl-sm shadow-sm'
                                             }`}
                                     >
-                                        <p className="text-sm leading-relaxed">{message.text}</p>
+                                        <p className="text-sm leading-relaxed">
+                                            <ReactMarkdown>
+                                                {message.text}
+                                            </ReactMarkdown>
+                                            </p>
                                     </div>
                                 </div>
                             </div>
