@@ -1,4 +1,4 @@
-import { Button, Form, Input, message, Modal, /*Upload*/ } from "antd";
+import { Button, Form, Input, message, Modal, Upload } from "antd";
 import { chatTypes } from "../CreateNewChat";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
@@ -6,6 +6,8 @@ import { useState } from "react";
 import { createFirstChat } from "../../../services/AiService";
 import { cloneDeep } from "lodash";
 import { updateChatList } from "../../../store/slice/dashboardSlice";
+import {InboxOutlined} from '@ant-design/icons';
+
 type ChatType = 'article' | 'youtube' | 'pdf'
 type CreateChatType = {
     selectedType: ChatType
@@ -38,9 +40,9 @@ const CreateChat = ({ selectedType, open, setClose }: CreateChatType) => {
                     break;
                 case 'pdf':
                     data = new FormData();
-                    data.append('pdf', values.pdf[0])
+                    let file = values.pdf[0].originFileObj
+                    data.append('pdf', file)
                     data.append('type', values.type);
-                    throw new Error("Need to implement");
                     break;
 
             }
@@ -70,22 +72,22 @@ const CreateChat = ({ selectedType, open, setClose }: CreateChatType) => {
         }
     }
 
-    // const normFile = (e: any) => {
-    //     console.log('Upload event:', e);
-    //     if (Array?.isArray(e)) {
-    //         return e;
-    //     }
-    //     return e?.fileList;
-    // };
+    const normFile = (e: any) => {
+        console.log('Upload event:', e);
+        if (Array?.isArray(e)) {
+            return e;
+        }
+        return e?.fileList;
+    };
 
-    // const beforeUpload = (file: File) => {
-    //     const isPDF = file.type === 'application/pdf';
-    //     let maxSize = 10 * 1024 * 1024
-    //     if (!isPDF || file.size > maxSize) {
-    //         return isPDF || Upload.LIST_IGNORE;
-    //     }
-    //     return false
-    // }
+    const beforeUpload = (file: File) => {
+        const isPDF = file.type === 'application/pdf';
+        let maxSize = 10 * 1024 * 1024
+        if (!isPDF || file.size > maxSize) {
+            return isPDF || Upload.LIST_IGNORE;
+        }
+        return false
+    }
 
 
 
@@ -119,8 +121,7 @@ const CreateChat = ({ selectedType, open, setClose }: CreateChatType) => {
                     </>
                 ) : (
                     <>
-                        <div>Comming Soon</div>
-                        {/* <Form.Item label="">
+                        <Form.Item label="">
                             <Form.Item name="pdf" valuePropName="pdf" getValueFromEvent={normFile} noStyle>
                                 <Upload.Dragger maxCount={1} beforeUpload={beforeUpload} name="pdf">
                                     <p className="ant-upload-drag-icon">
@@ -130,7 +131,7 @@ const CreateChat = ({ selectedType, open, setClose }: CreateChatType) => {
                                     <p className="ant-upload-hint">PDF files only (Max 10MB).</p>
                                 </Upload.Dragger>
                             </Form.Item>
-                        </Form.Item> */}
+                        </Form.Item>
                     </>
                 )}
 
@@ -138,7 +139,6 @@ const CreateChat = ({ selectedType, open, setClose }: CreateChatType) => {
                     <Button
                         htmlType='submit'
                         className="w-full"
-                        disabled={selectedType=='pdf'}
                         loading={loading}
                         type="primary"
                         size="large"

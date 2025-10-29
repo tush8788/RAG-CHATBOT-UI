@@ -49,7 +49,7 @@ const CreateNewChat = () => {
                                     <button
                                         key={type.id}
                                         onClick={() => {setChat({isOpen:true,type:type.id})}}
-                                        className=" border-2 border-gray-200 hover:border-blue-500 rounded-xl p-6 transition-all hover:shadow-lg group"
+                                        className={`border-2 border-gray-200 hover:border-blue-500 rounded-xl p-6 transition-all hover:shadow-lg group ${mode == 'dark' && 'bg-[#1B1B1B] border-gray-500'} !cursor-pointer`}
                                     >
                                         <div className="flex flex-col items-center space-y-3">
                                             <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center group-hover:bg-blue-500 transition-colors">
