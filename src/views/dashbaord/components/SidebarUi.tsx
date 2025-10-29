@@ -6,7 +6,7 @@ import ConditionalRender from "../../../components/shared/ConditionalRender"
 import { useState } from "react"
 import CreateNewChat from "./CreateNewChat"
 import { Bot } from "lucide-react"
-import { IoIosLogOut } from "react-icons/io"
+import { IoIosHelpCircleOutline, IoIosLogOut } from "react-icons/io"
 import ChatList from "./ChatList"
 import { updateSidebarCollapsed, updateThemeMode } from "../../../store/slice/utilsSlice"
 import { GoMoon, GoSun } from "react-icons/go";
@@ -45,7 +45,7 @@ const InnerElements = ({ sidebarCollapsed, openNewChat, MenuSelect, menuProps, u
             <ChatList onSelect={() => { type == 'mobile' && onClose() }} />
 
             <Dropdown menu={menuProps}>
-                <div className="flex items-center gap-2 space-x-3 demo-logo-vertical p-2 pl-5">
+                <div className="flex items-center gap-2 space-x-3 demo-logo-vertical p-2 pl-5 cursor-pointer">
                     <Avatar src={user.profileImage} style={{ backgroundColor: '#fde3cf', color: '#f56a00' }}/>
                     <ConditionalRender condition={() => !sidebarCollapsed}>
                         <Typography.Paragraph className="!mb-0">{user.name}</Typography.Paragraph>
@@ -86,6 +86,11 @@ const Sidebar = () => {
             icon: theme.mode == 'dark' ? <GoSun size={20} /> : <GoMoon size={20} />,
         },
         {
+            label: 'Help',
+            key: 'help',
+            icon: <IoIosHelpCircleOutline size={23} />,
+        },
+        {
             label: 'Log out',
             key: 'logout',
             icon: <IoIosLogOut size={20} />,
@@ -102,6 +107,9 @@ const Sidebar = () => {
                 case 'theme':
                     let themeMode = utils.theme.mode == 'dark' ? 'light' : 'dark';
                     dispatch(updateThemeMode(themeMode))
+                    break;
+                case 'help':
+                    return window.open('https://portfolio-nu-wheat-87.vercel.app/')
                     break;
             }
         },
@@ -125,6 +133,7 @@ const Sidebar = () => {
                         MenuSelect={MenuSelect}
                         menuProps={menuProps}
                         user={user}
+                        className="!cursor-pointer"
                         type='mobile'
                         onClose={() => { dispatch(updateSidebarCollapsed(!sidebarCollapsed)) }}
                         theme={theme}
