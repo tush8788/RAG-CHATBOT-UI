@@ -52,7 +52,7 @@ const ChatUi = () => {
             setIsTyping(false);
         })
 
-        Socket?.on('first_chat_done', (message) => {
+        Socket?.on('first_chat_done', () => {
             dispatch(updateCreateMindmap(false))
         })
 
