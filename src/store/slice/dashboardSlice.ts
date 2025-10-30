@@ -9,6 +9,8 @@ type ChatType = {
 export type DashboardSliceType = {
     chatList: ChatType[]
     chatListFetching:boolean
+    createNewChat:boolean
+    creatingMindMap:boolean
 }
 
 export const getChatList = createAsyncThunk('getChatList', async (_, thunkApi) => {
@@ -25,11 +27,19 @@ const dashboardSlice = createSlice({
     name: 'dashboard',
     initialState: {
         chatList: [],
-        chatListFetching:false
+        chatListFetching:false,
+        createNewChat:false,
+        creatingMindMap:false
     } as DashboardSliceType,
     reducers: {
         updateChatList: (state, action) => {
             state.chatList = action.payload
+        },
+        updateCreateNewChat:(state,action) => {
+            state.createNewChat = action.payload
+        },
+        updateCreateMindmap:(state,action) => {
+            state.creatingMindMap = action.payload
         }
     },
     extraReducers: (builder) => {
@@ -45,5 +55,5 @@ const dashboardSlice = createSlice({
     }
 })
 
-export const { updateChatList } = dashboardSlice.actions;
+export const { updateChatList,updateCreateNewChat,updateCreateMindmap } = dashboardSlice.actions;
 export default dashboardSlice.reducer

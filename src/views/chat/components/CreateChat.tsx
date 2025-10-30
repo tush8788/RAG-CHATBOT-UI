@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { useState } from "react";
 import { createFirstChat } from "../../../services/AiService";
 import { cloneDeep } from "lodash";
-import { updateChatList } from "../../../store/slice/dashboardSlice";
+import { updateChatList, updateCreateMindmap, updateCreateNewChat } from "../../../store/slice/dashboardSlice";
 import {InboxOutlined} from '@ant-design/icons';
 
 type ChatType = 'article' | 'youtube' | 'pdf'
@@ -52,9 +52,12 @@ const CreateChat = ({ selectedType, open, setClose }: CreateChatType) => {
             // console.log("resp", resp);
             if (!resp?.data?.status) throw new Error(`${resp}`)
             let cloneChatList = cloneDeep(chatList);
-            cloneChatList.push(resp?.data?.results || []);
+            cloneChatList = [resp?.data?.results || [], ...cloneChatList]
+            // cloneChatList.push(resp?.data?.results || []);
             // console.log("resp?.data?.results ", resp?.data?.results)
             dispatch(updateChatList(cloneChatList));
+            dispatch(updateCreateNewChat(true))
+            dispatch(updateCreateMindmap(true))
             navigate(`/chat/${resp?.data?.results?.chatId}`)
             setLoading(false)
             setClose();

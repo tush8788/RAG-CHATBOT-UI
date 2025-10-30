@@ -10,12 +10,13 @@ const useSocket = (chatId: string) => {
     const {signOut} = useAuth()
     const [Socket, setSocket] = useState<SocketIOClient | null>(null);
     const { token } = useAppSelector((state) => state.user);
+    const {createNewChat} = useAppSelector((state)=>state.dashboard)
     useEffect(() => {
         if (!token) return;
 
         const newSocket = io(SOCKET_SERVER_URL, {
             auth: { token },
-            query: { chatId: chatId },
+            query: { chatId: chatId, isFirstChat: createNewChat || false},
             transports: ["websocket"],
         });
 

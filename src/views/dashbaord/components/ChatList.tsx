@@ -76,9 +76,10 @@ const ChatList = ({ onSelect }: { onSelect: () => void }) => {
         <div className={`${chatListFetching && 'h-[79vh] flex items-center justify-center w-[250px]'}`}>
             <Skeleton loading={chatListFetching} active paragraph={{rows:18,width:0}} className="p-4">
                 <Menu
-                    defaultSelectedKeys={[`${chatId}`]}
+                    // defaultSelectedKeys={[`${chatId}`]}
                     onSelect={(info) => { NavigatePage(info.key); onSelect(); }}
                     mode="inline"
+                    selectedKeys={[`${chatId}`]}
                     inlineCollapsed={false}
                     items={sidebarCollapsed ? [] : items}
                     className=" h-[79vh]  overflow-y-auto !bg-transparent !border-none"

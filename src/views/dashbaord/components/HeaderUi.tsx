@@ -20,7 +20,7 @@ const HeaderUi = () => {
     const navigate = useNavigate()
     const isMindMapShow = useMemo(() => { return window?.location?.pathname?.includes('mindmap') }, [chatId])
     const [isMindMap, setMindMap] = useState(isMindMapShow ? isMindMapShow : false)
-    const {chatList} = useAppSelector((state)=>state?.dashboard)
+    const {chatList,creatingMindMap} = useAppSelector((state)=>state?.dashboard)
 
     const chatName = useMemo(()=>{
         console.log("chatId ",chatId)
@@ -63,6 +63,7 @@ const HeaderUi = () => {
                     className="mr-4"
                     icon={isMindMap ? <WechatWorkOutlined /> : <RiMindMap size={21} />}
                     onClick={() => showMindMap()}
+                    loading={creatingMindMap}
                     style={{
                         fontSize: '16px',
                         // height: 64,
